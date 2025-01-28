@@ -15,7 +15,6 @@ export class UserService {
   constructor(
     @InjectRepository(User) private readonly repository: Repository<User>,
   ) {}
-
   public async createUser(
     body: CreateUserDto,
     ...roles: Role[]
@@ -41,10 +40,6 @@ export class UserService {
     });
     return user;
   }
-  /**
-   * Retrieve all users from the database.
-   * @returns An array of user entities.
-   */
   async findAll(): Promise<User[]> {
     return this.repository.find();
   }
@@ -65,31 +60,17 @@ export class UserService {
     }
     return user;
   }
-
-  /**
-   * Update an existing user's details.
-   * @param id - User ID.
-   * @param updateUserDto - Data Transfer Object for updating user details.
-   * @returns The updated user entity.
-   */
   async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     const user = await this.findById(id);
     Object.assign(user, updateUserDto);
     return this.repository.save(user);
   }
-
-  /**
-   * Delete a user by their ID.
-   * @param id - User ID.
-   * @returns A boolean indicating success.
-   */
   async deleteUser(id: number): Promise<void> {
     const result = await this.repository.delete(id);
     if (result.affected === 0) {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
   }
-
   public async save(user: User) {
     return this.repository.save(user);
   }
