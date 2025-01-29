@@ -14,7 +14,7 @@ import { Size } from './size.entity';
 @Entity()
 export class ProductVariation {
   @PrimaryGeneratedColumn()
-  id!: number;
+  id: number;
 
   @ManyToOne(() => Product)
   @JoinColumn({ name: 'productId' })
@@ -41,8 +41,8 @@ export class ProductVariation {
   imageUrls: string[];
 
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt!: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt!: Date;
+  updatedAt: Date;
 }

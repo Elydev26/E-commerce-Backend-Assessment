@@ -8,13 +8,13 @@ import {
 @Entity()
 export class Size {
   @PrimaryColumn({ type: 'varchar', length: 30 })
-  code!: string;
+  code: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt!: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt!: Date;
+  updatedAt: Date;
 }
 
 export enum SizeCodes {

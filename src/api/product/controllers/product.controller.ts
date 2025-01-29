@@ -35,6 +35,7 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get('search')
+  @Auth(RoleIds.Admin, RoleIds.Merchant)
   @ApiOperation({ summary: 'Search and filter products' })
   @ApiResponse({
     status: 200,
