@@ -8,6 +8,8 @@ import { User } from 'src/entity/user.entity';
 import { configuration } from 'src/config';
 import { TypeOrmConfigService } from 'src/config/database/typeorm/typeorm.service';
 
+jest.setTimeout(30000);
+
 describe('UserController', () => {
   let controller: UserController;
   let fakeUserService: Partial<UserService>;

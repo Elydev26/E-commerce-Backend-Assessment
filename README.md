@@ -22,31 +22,28 @@ cd ./nestjs-ecommerce
 ```
 - start postgres database.
 
-```bash
-docker-compose up -d
-```
 
 - install app dependencies.
 
 ```bash
-npm install
+yarn install
 ```
 
 - run database migrations.
 
 ```bash
-npm run migration:run
+ yarn orm:mig:run
 ```
 if you want to generate any future migration
 
 ```bash
-npm run migration:generate --name=<migrationName>
+yarn orm:mig:gen --name=<migrationName>
 ```
 
 - run database seeders.
 
 ```bash
-npm run seed:run
+yarn seed:run
 ```
 
 - start the applictaion.
@@ -57,8 +54,8 @@ yarn start:dev
 
 ## Testing
 To run the tests, follow these steps:
-1. Install dependencies: `npm install`
-2. Run the tests: `npm run test`
+1. Install dependencies: `yarn install`
+2. Run the tests: `yarn run test`
 
 ## Contributing
 If you're interested in contributing to this project, please follow these guidelines:
