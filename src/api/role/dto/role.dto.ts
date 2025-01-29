@@ -3,9 +3,9 @@ import { IsNotEmpty, IsNumber } from 'class-validator';
 export class AssignRoleDto {
   @IsNumber()
   @IsNotEmpty()
-  public userId: number;
+  userId: number;
 
   @IsNumber()
   @IsNotEmpty()
-  public roleId: number;
+  roleId: number;
 }

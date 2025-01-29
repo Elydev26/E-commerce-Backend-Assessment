@@ -17,7 +17,7 @@ import { CreateUserDto, UpdateUserDto, UserDto } from '../dto/user.dto';
 import { UserService } from '../services/user.service';
 import { User } from 'src/entity/user.entity';
 
-@ApiTags('Users') // Swagger grouping
+@ApiTags('Users')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}

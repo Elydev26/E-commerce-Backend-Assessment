@@ -9,7 +9,7 @@ import {
 @Entity()
 export class Color {
   @PrimaryColumn({ type: 'varchar', length: 30 })
-   name!: string;
+   name: string;
 
   @Column({ type: 'varchar', length: 10 })
    hexCode: string;

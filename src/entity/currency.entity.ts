@@ -9,16 +9,16 @@ import {
 @Entity()
 export class Currency {
   @PrimaryColumn({ type: 'varchar', length: 7 })
- code!: string;
+ code: string;
 
   @Column({ type: 'varchar' })
    name: string;
 
   @CreateDateColumn({ type: 'timestamp' })
-   createdAt!: Date;
+   createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
- updatedAt!: Date;
+ updatedAt: Date;
 }
 
 export enum CurrencyCodes {

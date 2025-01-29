@@ -13,7 +13,7 @@ import { ProductVariation } from './productVariation.entity';
 @Entity()
 export class Inventory {
   @PrimaryGeneratedColumn()
-   id!: number;
+   id: number;
 
   @ManyToOne(() => ProductVariation)
   @JoinColumn({ name: 'productVariationId' })
@@ -33,8 +33,8 @@ export class Inventory {
    quantity: number;
 
   @CreateDateColumn({ type: 'timestamp' })
-   createdAt!: Date;
+   createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-   updatedAt!: Date;
+   updatedAt: Date;
 }

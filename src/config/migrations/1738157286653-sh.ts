@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class Sh1738065539773 implements MigrationInterface {
-    name = 'Sh1738065539773'
+export class Sh1738157286653 implements MigrationInterface {
+    name = 'Sh1738157286653'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "category" ("id" integer NOT NULL, "name" character varying NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_9c4e4a89e3674fc9f382d733f03" PRIMARY KEY ("id"))`);
@@ -11,10 +11,10 @@ export class Sh1738065539773 implements MigrationInterface {
         await queryRunner.query(`CREATE TABLE "role" ("id" integer NOT NULL, "name" character varying(120) NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "UQ_ae4578dcaed5adff96595e61660" UNIQUE ("name"), CONSTRAINT "PK_b36bcfe02fc8de3c57a8b2391c2" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "user" ("id" SERIAL NOT NULL, "email" character varying(120) NOT NULL, "password" character varying NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "UQ_e12875dfb3b1d92d7d7c5377e22" UNIQUE ("email"), CONSTRAINT "PK_cace4a159ff9f2512dd42373760" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "size" ("code" character varying(30) NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_4dd6860deef208c5fc96c6d311f" PRIMARY KEY ("code"))`);
-        await queryRunner.query(`CREATE TABLE "color" ("name" character varying(30) NOT NULL, "hexCode" character varying(10) NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_229c1a96f14d7187fccf3684ecc" PRIMARY KEY ("name"))`);
-        await queryRunner.query(`CREATE TABLE "product_variation" ("id" SERIAL NOT NULL, "productId" integer NOT NULL, "sizeCode" character varying(7) NOT NULL, "colorName" character varying(30) NOT NULL, "imageUrls" text array NOT NULL DEFAULT '{}', "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_bfae10232dcbc2c77fb37d0ebf5" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "country" ("code" character varying(7) NOT NULL, "name" character varying NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_8ff4c23dc9a3f3856555bd86186" PRIMARY KEY ("code"))`);
         await queryRunner.query(`CREATE TABLE "currency" ("code" character varying(7) NOT NULL, "name" character varying NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_723472e41cae44beb0763f4039c" PRIMARY KEY ("code"))`);
+        await queryRunner.query(`CREATE TABLE "color" ("name" character varying(30) NOT NULL, "hexCode" character varying(10) NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_229c1a96f14d7187fccf3684ecc" PRIMARY KEY ("name"))`);
+        await queryRunner.query(`CREATE TABLE "product_variation" ("id" SERIAL NOT NULL, "productId" integer NOT NULL, "sizeCode" character varying(7) NOT NULL, "colorName" character varying(30) NOT NULL, "imageUrls" text array NOT NULL DEFAULT '{}', "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_bfae10232dcbc2c77fb37d0ebf5" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "product_variation_price" ("id" SERIAL NOT NULL, "productVariationId" integer NOT NULL, "countryCode" character varying(7) NOT NULL, "currencyCode" character varying(7) NOT NULL, "price" numeric NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_3b3ac8ce948a3f88a0c8c1fb4f6" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "inventory" ("id" SERIAL NOT NULL, "productVariationId" integer NOT NULL, "countryCode" character varying(7) NOT NULL, "quantity" integer NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_82aa5da437c5bbfb80703b08309" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "user_roles" ("userId" integer NOT NULL, "roleId" integer NOT NULL, CONSTRAINT "PK_88481b0c4ed9ada47e9fdd67475" PRIMARY KEY ("userId", "roleId"))`);
@@ -52,10 +52,10 @@ export class Sh1738065539773 implements MigrationInterface {
         await queryRunner.query(`DROP TABLE "user_roles"`);
         await queryRunner.query(`DROP TABLE "inventory"`);
         await queryRunner.query(`DROP TABLE "product_variation_price"`);
-        await queryRunner.query(`DROP TABLE "currency"`);
-        await queryRunner.query(`DROP TABLE "country"`);
         await queryRunner.query(`DROP TABLE "product_variation"`);
         await queryRunner.query(`DROP TABLE "color"`);
+        await queryRunner.query(`DROP TABLE "currency"`);
+        await queryRunner.query(`DROP TABLE "country"`);
         await queryRunner.query(`DROP TABLE "size"`);
         await queryRunner.query(`DROP TABLE "user"`);
         await queryRunner.query(`DROP TABLE "role"`);
