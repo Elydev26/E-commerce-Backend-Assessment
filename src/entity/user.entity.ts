@@ -17,7 +17,7 @@ import { IsEmail, IsString, IsArray } from 'class-validator';
 export class User {
   @ApiProperty({ description: 'Unique user identifier' })
   @PrimaryGeneratedColumn()
-  id!: number;
+  id: number;
 
   @ApiProperty({ description: 'User email address' })
   @Column({ type: 'varchar', length: 120, unique: true, nullable: false })
@@ -41,9 +41,9 @@ export class User {
 
   @ApiProperty({ description: 'User creation timestamp' })
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt!: Date;
+  createdAt: Date;
 
   @ApiProperty({ description: 'User last update timestamp' })
   @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt!: Date;
+  updatedAt: Date;
 }

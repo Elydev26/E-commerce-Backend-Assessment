@@ -27,7 +27,7 @@ export class Product {
   @PrimaryGeneratedColumn()
   @IsDefined()
   @IsNumber()
-   id!: number;
+   id: number;
 
   @ApiProperty({ description: 'Unique product code' })
   @Column({ type: 'varchar', unique: true, nullable: false })
@@ -108,10 +108,10 @@ export class Product {
 
   @ApiProperty({ description: 'Product creation timestamp' })
   @CreateDateColumn({ type: 'timestamp' })
-   createdAt!: Date;
+   createdAt: Date;
 
   @ApiProperty({ description: 'Product last update timestamp' })
   @UpdateDateColumn({ type: 'timestamp' })
-   updatedAt!: Date;
+   updatedAt: Date;
 }
 

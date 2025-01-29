@@ -3,16 +3,15 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { DeleteResult, EntityManager, Like, Between, SelectQueryBuilder } from 'typeorm';
+import {  EntityManager,  SelectQueryBuilder } from 'typeorm';
 import { InjectEntityManager } from '@nestjs/typeorm';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CreateProductDto, ProductDetailsDto, ProductSearchDto, SortField, SortOrder } from '../dto/product.dto';
 import { errorMessages } from 'src/errors/custom';
 import { validate } from 'class-validator';
 import { Category } from '../../../entity/category.entity';
 import { Product } from '../../../entity/product.entity';
 import { successObject } from '../../../helper/sucess-response.interceptor';
-import { PaginatedResponse } from 'src/util/functions/pagination.function';
+import { PaginatedResponse } from 'src/utils/functions/pagination.function';
 
 @Injectable()
 export class ProductService {
@@ -32,9 +31,11 @@ export class ProductService {
   }
 
   async createProduct(data: CreateProductDto, merchantId: number) {
+    console.log(data, merchantId)
     const category = await this.entityManager.findOne(Category, {
       where: { id: data.categoryId },
     });
+    console.log('cat esult', category)
 
     if (!category) throw new NotFoundException(errorMessages.category.notFound);
 
@@ -43,7 +44,7 @@ export class ProductService {
       merchantId,
       ...data,
     });
-
+console.log("product result", product)
     return this.entityManager.save(product);
   }
 
@@ -92,44 +93,6 @@ export class ProductService {
       totalPages: Math.ceil(total / searchDto.limit),
     };
   }
-
-  // private createSearchQueryBuilder(
-  //   searchDto: ProductSearchDto,
-  //   merchantId: number,
-  // ): SelectQueryBuilder<Product> {
-  //   const queryBuilder = this.entityManager
-  //     .createQueryBuilder(Product, 'product')
-  //     .leftJoinAndSelect('product.category', 'category')
-  //     .where('product.merchantId = :merchantId', { merchantId });
-  //   if (searchDto.search) {
-  //     queryBuilder.andWhere('LOWER(product.title) LIKE LOWER(:search)', {
-  //       search: `%${searchDto.search}%`,
-  //     });
-  //   }
-  //   if (searchDto.category) {
-  //     queryBuilder.andWhere('LOWER(category.name) = LOWER(:category)', {
-  //       category: searchDto.category,
-  //     });
-  //   }
-  //   if (searchDto.categoryId) {
-  //     queryBuilder.andWhere('category.id = :categoryId', {
-  //       categoryId: searchDto.categoryId,
-  //     });
-  //   }
-  //   if (searchDto.minPrice !== undefined) {
-  //     queryBuilder.andWhere('product.price >= :minPrice', {
-  //       minPrice: searchDto.minPrice,
-  //     });
-  //   }
-  //   if (searchDto.maxPrice !== undefined) {
-  //     queryBuilder.andWhere('product.price <= :maxPrice', {
-  //       maxPrice: searchDto.maxPrice,
-  //     });
-  //   }
-  //   this.applySorting(queryBuilder, searchDto);
-
-  //   return queryBuilder;
-  // }
   private createSearchQueryBuilder(
     searchDto: ProductSearchDto,
     merchantId: number,
@@ -206,31 +169,6 @@ export class ProductService {
     return queryBuilder;
 
   }  
-  private applySorting(
-    queryBuilder: SelectQueryBuilder<Product>,
-    searchDto: ProductSearchDto,
-  ): void {
-    const sortField = this.getSortField(searchDto.sortBy);
-    const sortOrder = searchDto.sortOrder || SortOrder.DESC;
-
-    queryBuilder.orderBy(sortField, sortOrder);
-
-    // Add secondary sort by id to ensure consistent ordering
-    queryBuilder.addOrderBy('product.id', SortOrder.DESC);
-  }
-
-  private getSortField(sortBy: SortField): string {
-    const sortFieldMap: Record<SortField, string> = {
-      [SortField.PRICE]: 'product.price',
-      [SortField.NAME]: 'product.title',
-      [SortField.STOCK]: 'product.stockQuantity',
-      [SortField.CREATED_AT]: 'product.createdAt',
-      // Add more sort fields as needed
-    };
-
-    return sortFieldMap[sortBy] || 'product.createdAt';
-  }
-
   private async executeSearchQuery(
     queryBuilder: SelectQueryBuilder<Product>,
     searchDto: ProductSearchDto,

@@ -11,7 +11,7 @@ import { User } from './user.entity';
 @Entity()
 export class Role {
   @PrimaryColumn()
-  id!: number;
+  id: number;
 
   @Column({ type: 'varchar', length: 120, unique: true })
   name: string;
@@ -20,8 +20,8 @@ export class Role {
   users: User[];
 
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt!: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt!: Date;
+  updatedAt: Date;
 }

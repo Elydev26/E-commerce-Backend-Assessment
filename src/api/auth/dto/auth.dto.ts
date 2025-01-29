@@ -1,12 +1,3 @@
-// import { IsNotEmpty } from 'class-validator';
-
-// export class PayloadDto {
-//   @IsNotEmpty()
-//    email: string;
-
-//   @IsNotEmpty()
-//  id: number;
-// }
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
