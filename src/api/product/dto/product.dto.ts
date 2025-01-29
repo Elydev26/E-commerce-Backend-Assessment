@@ -41,7 +41,7 @@ export class ProductDetailsDto {
   })
   @IsString()
   @IsNotEmpty()
-  quntity: number;
+  code: string;
 
   @ApiProperty({
     description: 'Product variation type',
